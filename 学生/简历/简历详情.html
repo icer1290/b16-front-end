@@ -1,0 +1,72 @@
+<!-- 需求：（设计）
+		1. 文本框尺寸：大号文本框，宽度与页面尺寸相当，长度视内容自己安排，最好有设计样式
+		2. 背景：参考之前编辑个人信息的背景，应与个人中心界面配合
+		3. 显示创建时间的span格式要醒目且偏小一点
+		4. “个人简历信息”标题大号加粗
+		5. body部分只要不动id就行-->
+
+
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>简历详情</title>
+		<script src="../cookie.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../jquary.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../useful.js" type="text/javascript" charset="utf-8"></script>
+		<script src="resume%20detail.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" href="auto.css" type="text/css">
+		<link rel="stylesheet" href="index.css" type="text/css">
+	</head>
+
+
+
+	<body>
+		<div class="right">
+			<span id="timeTitle">
+				创建时间:
+			</span> <span id="createTime"></span><br><br>
+			<div class="input">
+				<img src="./img/kecheng.png" alt="">
+				<input type="text" placeholder="填写您的简历名称" id="resumeName" /><span id="nameError"></span>
+			</div><br>
+			<div class="input">
+				<img src="./img/kecheng.png" alt="">
+				<textarea type="text" placeholder="填写您的课程" id="learnCourse"></textarea>
+			</div><br>
+
+			<div class="input">
+				<img src="./img/techang.png" alt="">
+				<input type="text" placeholder="填写您的特长" id="specialty" />
+
+			</div><br>
+			<div class="input">
+				<img src="./img/aihao.png" alt="">
+				<input type="text" placeholder="填写您的爱好" id="hobby" />
+
+			</div><br>
+			<div class="input">
+				<img src="./img/gongzuo.png" alt="">
+				<textarea placeholder="填写您的工作经历" id="workExp"></textarea>
+			</div><br>
+			<div class="input">
+				<img src="./img/jingli.png" alt="">
+				<textarea placeholder="填写您的项目经历" id="projectExp"></textarea>
+			</div><br>
+			<div class="input">
+				<img src="./img/huojiang.png" alt="">
+				<textarea type="text" placeholder="填写您的获奖信息" id="awards"></textarea>
+			</div><br>
+			<div class="input">
+				<img src="./img/pingjia.png" alt="">
+				<textarea type="text" placeholder="填写您的个人评价" id="comment"></textarea>
+			</div><br>
+			<div class="button">
+				<div id="Edit">保存</div>
+				<div id="Delete">删除</div>
+			</div><br>
+		</div>
+
+	</body>
+</html>

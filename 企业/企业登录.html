@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>login</title>
+		<style type="text/css">
+			.err {
+				font-size: 12px;
+				color: red;
+			}
+		</style>
+		
+		<script src="cookie.js" type="text/javascript" charset="utf-8"></script>
+		<script src="jquary.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			window.onload = function(){
+				if (ReadCookie('email')!='') {
+					// document.getElementById("email").value = ReadCookie('email');
+					// document.getElementById("userpwd").value = ReadCookie('password');
+				}
+				
+				var emailErrorSpan = document.getElementById("emailError");
+				
+				// 给id="email"的节点绑定blur事件
+				var emailElt = document.getElementById("email");
+				emailElt.onblur = function() {
+					// 获取用户名
+					var email = emailElt.value;
+					// 去除掉前后空白
+					email = email.trim();
+					//if(email.length == 0){}
+					if (email == "") {
+						emailErrorSpan.innerHTML = "邮箱不能为空";
+					} else {
+						var regExp = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
+						var ok = regExp.test(email)
+						if (ok) {
+							// 合法
+							emailErrorSpan.innerHTML = "";
+						} else {
+							// 不合法
+							emailErrorSpan.innerHTML = "邮箱格式不正确";
+						}
+					}
+				}
+				// 获得焦点:清空span的错误信息.
+				emailElt.onfocus = function() {
+					emailErrorSpan.innerHTML = "";
+				}
+				
+				
+				var userpwdErrorSpan = document.getElementById("userpwdError");
+				
+				// 给id="userpwd"的节点绑定blur事件
+				var pwdElt = document.getElementById("password");
+				pwdElt.onblur = function() {
+					var pwd = pwdElt.value;
+					// 去除掉前后空白
+					pwd = pwd.trim();
+					if (pwd == "") {
+						userpwdErrorSpan.innerHTML = "密码不能为空";
+					} else {
+						var regExp = /^[A-Za-z0-9]+$/
+						var ok = regExp.test(pwd)
+						if (ok) {
+							// 合法
+							userpwdErrorSpan.innerHTML = "";
+						} else {
+							// 不合法
+							userpwdErrorSpan.innerHTML = "密码只能由数字和英文字母组成";
+						}
+					}
+				}
+				// 获得焦点:清空span的错误信息.
+				pwdElt.onfocus = function() {
+					userpwdErrorSpan.innerHTML = "";
+				}
+				
+				
+				document.getElementById("loginBtn").onclick = function() {
+					document.getElementById("email").focus();
+					document.getElementById("email").blur();
+				
+					document.getElementById("password").focus();
+					document.getElementById("password").blur();
+				
+					if (emailErrorSpan.innerHTML == "" && userpwdErrorSpan.innerHTML == "") {
+						/* 提交URL */
+						$.ajax({
+							type: "POST",
+							url: "http://127.0.0.1:8080/CorLogin",
+							// dataType: 'jsonp',
+							data: { //JSON对象
+								email: document.getElementById("email").value,
+								password: document.getElementById("password").value
+							},
+							//请求成功时调用的函数
+							success: function(data) {
+								if (data == 1) {
+									alert("登录成功！")	
+									email = document.getElementById("email").value
+									password = document.getElementById("password").value
+									setCookie("email", email)
+									setCookie("password", password)
+									// window.location = 
+								} else {
+									alert("邮箱或密码错误！")
+								}
+							}
+						})
+					}
+				}
+			}
+			
+				
+		</script>
+	</head>
+	<body>
+		<!-- 有需要的元素可以自行添加，不要修改下面的id****** -->
+		<div class="main">
+			<h1>登录企业账号</h1><br><br>
+			企业邮箱: <input type="text" name="email" id="email"/><span class="err" id="emailError"></span><br><br>
+			密码: <input type="password" name="password" id="password"/><span class="err" id="userpwdError"></span><br><br><br>
+			<input type="button" name="loginBtn" id="loginBtn" value="登录" />
+			<a href="企业注册.html">没有账号？</a>
+		</div>
+	</body>
+</html>
