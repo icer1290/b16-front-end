@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>information</title>
+		<!-- css写在外部的文件里 -->
+	</head>
+	<body>
+		<div class="main">
+			企业名称:&emsp;&emsp;<input type="text" id="firmName" /><br><br> <span id="nameError"></span>
+			地址(省、市): <input type="text" id="firmLocation" /><br><br>
+			企业类型:&emsp;&emsp;<select name="comtype" id="comtype">
+				<option value="" selected="selected">——请选择——</option>
+				<option value="国有企业">国有企业</option>
+				<option value="集体所有制企业">集体所有制企业</option>
+				<option value="私营企业">私营企业</option>
+				<option value="股份制企业">股份制企业</option>
+				<option value="有限合伙企业">有限合伙企业</option>
+				<option value="联营企业">联营企业</option>
+				<option value="外商投资企业">外商投资企业</option>
+				<option value="个人投资企业">个人投资企业</option>
+			</select><br><br>
+			担任职务:&emsp;&emsp;<input type="text" id="position" /><br><br>
+			
+			<button type="button" id="save">保存</button>
+		</div>
+	</body>
+</html>
