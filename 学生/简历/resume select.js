@@ -2,12 +2,6 @@ window.onload = function() {
 	username = ReadCookie("username");
 	// 发送一个username，返回包含该用户所有简历名的json，
 	// 处理后显示所有该用户简历的链接
-	function setOrder(order) {
-		// setCookie("resumeOrder",order);
-		alert("Ssss");
-	}
-
-
 	$.ajax({
 		type: "POST",
 		url: "http://127.0.0.1:8080/showResumes",

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Posting details</title>
+</head>
+
+<body>
+    <script type="text/html" id="typeTpl">
+        <!-- types模板 -->
+        <option>请选择类型</option>
+        <!-- each：循环 types中的数据 -->
+        {{each types}}
+        <!-- value：循环过程当中的当前项 -->
+        <option value="{{$value.id}}">{{$value.name}}</option>
+        {{/each}}
+    </script>
+
+    <!-- industry模板 -->
+    <script type="text/html" id="industryTpl">
+        <option>请选择行业</option>
+        <!-- each：循环 industry中的数据 -->
+        {{each industry}}
+        <!-- value：循环过程当中的当前项 -->
+        <option value="{{$value.id}}">{{$value.name}}</option>
+        {{/each}}
+    </script>
+
+    <!-- job模板 -->
+    <script type="text/html" id="jobTpl">
+        <option>请选择职位</option>
+        <!-- each：循环 job中的数据 -->
+        {{each job}}
+        <!-- value：循环过程当中的当前项 -->
+        <option value="{{$value.id}}">{{$value.name}}</option>
+        {{/each}}
+    </script>
+
+
+    <script>
+        //获取类型，行业，职位下拉框的元素
+        var types = document.getElementById('types');
+        var industry = document.getElementById('industry');
+        var job = document.getElementById('job');
+        //获取类型信息，这里后端服务器url里应该有两个数据
+        ajax({
+            type: 'get',
+            url: 'xxxxxxxxx', //types接口
+            success: function(data) {
+                //将服务器端返回的数据和html进行拼接
+                template('typesTpl', {
+                    types: data
+                });
+                //将拼接好的字符串显示在html页面中
+                types.innerHTML = html;
+            }
+        });
+
+        //为types的下拉框添加值改变事件
+        types.onchange = function() {
+            //获取typesid
+            var tpyesid = this.value;
+            //清空job下拉框的数据
+            var html = template('jobTpl', {
+                job: []
+            });
+            job.innerHTML = html;
+
+            //根据tpyesid获取行业信息
+            ajax({
+                type: 'get',
+                url: 'xxxxxxxxx', //industry接口
+                data: {
+                    //id这个参数名是后端接口规定的，后端也要写id
+                    id: tpyesid
+                },
+                success: function(data) {
+                    var html = template('industryTpl', {
+                        industry: data
+                    });
+                    industry.innerHTML = html;
+                }
+            });
+        };
+
+        //当用户选择行业的时候
+        industry.onchange = function() {
+            //获取行业id
+            var industryid = this.value;
+            //根据行业id获取职位信息
+            ajax({
+                tpye: 'get',
+                url: 'xxxxxxxx', //job接口
+                data: {
+                    id: industryid
+                },
+                success: function(data) {
+                    var html = template('jobTpl', {
+                        job: data
+                    });
+                    job.innerHTML = html;
+                }
+            })
+        }
+    </script>
+    <h3>类型</h3>
+    <select id="types">
+		<option>请选择类型</option>
+			<option value="practice">实习/IT</option>
+			<option value="on-campus">校招</option>
+		</select><br>
+
+    <h3>行业</h3>
+    <select id="industry">
+			<option>请选择行业</option>
+			<option value="internet">互联网</option>
+			<option value="design">设计/传媒</option>
+			<option value="finance">金融</option>
+			<option value="business">商务</option>
+			<option value="education">教育</option>
+			<option value="biomedical">生物医疗</option>
+		</select><br>
+
+    <h3>职位</h3>
+    <select id="job">
+			<option>请选择职位</option>
+			<option value="aaa">职位A</option>
+			<option value="bbb">职位B</option>
+			<option value="ccc">职位C</option>
+			<option value="ddd">职位D</option>
+		</select><br><br>
+
+    <input type="button" id="confirm" value="确认发布">
+</body>
+
+</html>
